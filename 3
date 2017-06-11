@@ -16,11 +16,8 @@
         const wordSize = INTERNAL_FORMAT.BYTES_PER_ELEMENT * 8;
         const wordSizeMask = wordSize - 1;
         const wordSizeShift = msb_index( wordSize );
-        const wordCount = ( length + wordSizeMask ) >> wordSizeShift;
-        const internal = new INTERNAL_FORMAT( wordCount );
-        let changed = true;
+        const internal = new INTERNAL_FORMAT( length );
         Object.assign( this, {
-          changed,
           length,
           wordSize,
           wordSizeMask,
@@ -29,41 +26,29 @@
         });
       }
       toArray() {
-        if ( ! this.changed ) {
-          return this.array;
-        }
-        const array = this.array = new Uint8Array( this.length );
+        const byte_sz = ( this.length + 7 ) >> 3;
+        const array = new Uint8Array( byte_sz );
         for( let i = 0; i < this.length; i++ ) {
           array[i] = this.getBit(i);
         }
-        this.changed = false;
         return array;
       }
       getBit( i ) {
-        if ( i >= this.length ) {
-          return;
-        }
         const word_number = i >> this.wordSizeShift;
         const word_offset = i & this.wordSizeMask;
         const word = this.internal[word_number];
-        const bit = (word >> word_offset)&1;
+        const bit = (word << word_offset) >> this.wordSize;
         return bit;
       }
       setBit( i, bit ) {
-        if ( i >= this.length ) {
-          return;
-        }
         const word_number = i >> this.wordSizeShift;
         const word_offset = i & this.wordSizeMask;
         const word = this.internal[word_number];
-        let new_word = word;
-        new_word |= ( bit << word_offset ); // make it 1 if 1, no change if 0
-        new_word &= ~((~bit&1) << word_offset ); // make it 0 if 0, no change if 1
-        if ( word !== new_word ) {
-          this.changed = true;
-          this.internal[word_number] = new_word;
-        }
+        word = word | ( bit << word_offset ); // make it 1 if 1, no change if 0
+        word = word & ~(~bit << word_offset ); // make it 0 if 0, no change if 1
+        this.internal[word_number] = word;
         return bit;
+
       }
     }
 
@@ -139,156 +124,153 @@
       // Method slots on the instance
 
         copyWithin( ...args ) {
-          this[$].toArray().copyWithin( ...args );
+          this[$].internal.copyWithin( ...args );
           return this;
         }
 
         entries() {
-          return this[$].toArray().entries();
+          return this[$].internal.entries();
         }
 
         every( ...args ) {
-          return this[$].toArray().every( ...args );
+          return this[$].internal.every( ...args );
         }
 
         fill( ...args ) {
-          this[$].toArray().fill( ...args );
+          this[$].internal.fill( ...args );
           return this;
         }
 
         filter( ...args ) {
-          return new Uint1Array( this[$].toArray().filter( ...args ) );
+          return new this( this[$].internal.filter( ...args ) );
         }
 
         find( ...args ) {
-          return this[$].toArray().find( ...args );
+          return this[$].internal.find( ...args );
         }
 
         findIndex( ...args ) {
-          return this[$].toArray().findIndex( ...args );
+          return this[$].internal.findIndex( ...args );
         }
 
         forEach( ...args ) {
-          this[$].toArray().forEach( ...args );
+          this[$].internal.forEach( ...args );
         }
 
         includes( ...args ) {
-          return this[$].toArray().includes( ...args );
+          return this[$].internal.includes( ...args );
         }
 
         indexOf( ...args ) {
-          return this[$].toArray().indexOf( ...args );
+          return this[$].internal.indexOf( ...args );
         }
 
         join( ...args ) {
-          return this[$].toArray().join( ...args );
+          return this[$].internal.join( ...args );
         }
 
         keys( ...args ) {
-          return this[$].toArray().keys( ...args );
+          return this[$].internal.keys( ...args );
         }
 
         lastIndexOf( ...args ) {
-          return this[$].toArray().lastIndexOf( ...args );
+          return this[$].internal.lastIndexOf( ...args );
         }
 
         map( ...args ) {
-          return new Uint1Array( this[$].toArray().map( ...args ) );
+          return new this( this[$].internal.map( ...args ) );
         }
 
         reduce( ...args ) {
-          return this[$].toArray().reduce( ...args );
+          return this[$].internal.reduce( ...args );
         }
 
         reduceRight( ...args ) {
-          return this[$].toArray().reduceRight( ...args );
+          return this[$].internal.reduceRight( ...args );
         }
 
         reverse( ...args ) {
-          return new Uint1Array( this[$].toArray().reverse( ...args ) );
+          return new this( this[$].internal.reverse( ...args ) );
         }
 
         set( ...args ) {
-          this[$].toArray().set( ...args );
+          this[$].internal.set( ...args );
         }
 
         slice( ...args ) {
-          return new Uint1Array( this[$].toArray().slice( ...args ) );
+          return new this( this[$].internal.slice( ...args ) );
         }
 
         sort( ...args ) {
-          const sorting = this[$].toArray().sort( ...args );
-          this.fill( sorting );
-          return this;
+          return this[$].internal.sort( ...args );
         }
 
         subarray( ...args ) {
-          return new Uint1Array( this[$].toArray().subarray( ...args ) );
+          return new this( this[$].internal.subarray( ...args ) );
         }
 
         values( ...args ) {
-          return this[$].toArray().values( ...args );
+          return this[$].internal.values( ...args );
         }
 
         toLocaleString( ...args ) {
-          return this.toString().toLocaleString();
+          return this[$].internal.toLocaleString( ...args );
         }
 
-        toString() {
-          return `Uint1Array [ ${ this[$].toArray().join(', ') } ]`;
+        toString( ...args ) {
+          return this[$].internal.toString( ...args );
         }
 
         [Symbol.iterator]() {
-          return this[$].toArray()[Symbol.iterator]();
+          return this[$].internal[Symbol.iterator]();
         }
     }
 
-    class Uint1Array {
+    class Uint1Array extends Uint32Array {
       constructor( arg ) {
+        super();
         const api = new Uint1ArrayPublics( arg );
         const accessorProxy = new AccessorProxy( api );
-        this.__proto__ = accessorProxy;
+        //accessorProxy[$] = api[$];
+        //console.log( api[$] )
+        return accessorProxy;
+        this.__proto__.__proto__ = accessorProxy;
         return this;
       }
     }
 
   // accessor proxy 
 
-    function AccessorProxy( typed_array_api ) {
-      const privates = typed_array_api[$];
-      const array_accessor_handler = {
+    function AccessorProxy( api ) {
+      const privates = api[$];
+      const { wordSize, wordSizeMask, wordSizeShift } = privates;
+      const handler = {
         get( _, slot, surface ) {
-          const i = typeof slot == "string" ? parseInt(slot) : slot;
-          if ( Number.isInteger( i ) ) {
-            return privates.getBit( i );
+          console.log("Get", slot );
+          if ( Number.isInteger( slot ) ) {
+            return privates.getBit( slot );
           } else {
-            return Reflect.get( typed_array_api, slot );
+            console.log("Get", slot );
+            return Reflect.get( api, slot );
           }
         },
         set( _, slot, value, surface ) {
-          const i = typeof slot == "string" ? parseInt(slot) : slot;
-          if ( Number.isInteger( i ) ) {
+          console.log("Set", slot, value );
+          if ( Number.isInteger( slot ) ) {
             const bit = toBit( value );
-            privates.setBit( i, value );
-            return true;
+            return privates.setBit( slot, value );
           } else {
-            return Reflect.set( typed_array_api, slot, value );
+            console.log("Set", slot, value );
+            return Reflect.set( api, slot, value );
           }
         }
       };
-      return new Proxy( typed_array_api, array_accessor_handler );
+      const proxy = new Proxy( api, handler );
+      return proxy;
     }
 
   // helpers
     
-    function format( u1 ) {
-      let connector = ', ';
-      if ( u1.length > 10 ) { 
-        connector = ',\n\t';
-      }
-      return `Uint1Array [ ${ u1[$].toArray().join(connector) } ]`;
-    }
-
     function msb_index( number ) {
       let i = 0;
       while( number >>= 1 ) {
