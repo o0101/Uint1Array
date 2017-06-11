@@ -1,0 +1,24 @@
+{
+  "name": "uint1array",
+  "version": "1.0.0",
+  "description": "Uint1Array - JavaScript's missing Typed Array",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dosaygo-coder-0/Uint1Array.git"
+  },
+  "keywords": [
+    "typedarray",
+    "typed",
+    "array",
+    "uint1array",
+    "bit",
+    "array",
+    "bitfield"
+  ],
+  "author": "Kris <dontmailme@gmail.com> (https://2yago.com)",
+  "license": "MIT"
+}
