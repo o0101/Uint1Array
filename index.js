@@ -1,8 +1,5 @@
 "use strict";
 {
-  const typeNameMatcher = /\[object (\w+)]/;
-  const $ = Symbol("[[Uint1ArrayInternal]]");
-  const INTERNAL_FORMAT = Uint32Array;
   const TYPED_ARRAYS = new Set([
     "Int8Array",
     "Uint8Array",
@@ -14,14 +11,17 @@
     "Float32Array",
     "Float64Array"
   ]);
+  const INTERNAL_FORMAT = Uint32Array;
+  const $ = Symbol("[[Uint1ArrayInternal]]");
 
-  // classes 
+  // Uint1Array internals : toArray, getBit, setBit 
 
     class Uint1ArrayPrivates {
       constructor( publics, { length : length = null, 
                   buffer : buffer = null, byteOffset : byteOffset = 0 } = {} ) {
 
         let internal;
+
         if ( !! buffer ) {
           length = buffer.byteLength * 8;
         } else if ( ! length ) {
@@ -96,8 +96,7 @@
     class Uint1Array {
       // Uint1Array constructor 
       
-        constructor( arg , byteOffset, byteLength ) {
-          // find the constructor invocation
+        constructor( arg , byteOffset = 0, byteLength = null ) {
           const argType = resolveTypeName(arg);
           
           let length, privates, temp;
@@ -112,6 +111,13 @@
               const buffer = arg;
               privates = new Uint1ArrayPrivates( this, { buffer } );
               break;
+            case "Undefined":
+            case "Null":
+            case "RegExp":
+            case "Infinity":
+              length = 0;
+              privates = new Uint1ArrayPrivates( this, { length } );
+              break;
             case "Array":
             case "Int8Array":
             case "Uint8Array":
@@ -123,18 +129,6 @@
             case "Float32Array":
             case "Float64Array":
             case "Uint1Array":
-              temp = create_from_iterable( arg );
-              privates = new Uint1ArrayPrivates( this, { length : temp.length } );
-              temp.forEach( (val, i) => privates.setBit( i, val ) );
-              break;
-              break;
-            case "Undefined":
-            case "Null":
-            case "RegExp":
-            case "Infinity":
-              length = 0;
-              privates = new Uint1ArrayPrivates( this, { length } );
-              break;
             case "Object":
             default:
               temp = create_from_iterable( arg );
@@ -143,15 +137,15 @@
               break;
           }
 
-          // for private internal properties
+          // for private access to internal properties
+
           Object.defineProperty( this, $, { get: () => privates } );
 
           // proxy for array-like bracket-accessor via index
 
           const accessorProxy = new BracketAccessorProxy( this );
-          //this.__proto__ = accessorProxy;
+
           return accessorProxy;
-          return this;
         }
 
       // Static property slots on the constructor
@@ -330,7 +324,6 @@
       const array_accessor_handler = {
         get( _, slot, surface ) {
           const i = typeof slot == "string" ? parseInt(slot) : slot;
-          //console.log("Get", slot);
           if ( Number.isInteger( i ) ) {
             return privates.getBit( i );
           } else {
@@ -339,7 +332,6 @@
         },
         set( _, slot, value, surface ) {
           const i = typeof slot == "string" ? parseInt(slot) : slot;
-          //console.log("Set", slot, value );
           if ( Number.isInteger( i ) ) {
             const bit = toBit( value );
             privates.setBit( i, value );
@@ -354,6 +346,8 @@
 
   // helpers
     
+    const typeNameMatcher = /\[object (\w+)]/;
+
     function create_from_iterable( iterable ) {
       const temp = [];
       let length = 0;
@@ -384,6 +378,8 @@
     function toBit( thing ) {
       return !! thing ? 1 : 0;
     }
+
+    
 
     function resolveTypeName( thing ) {
       return typeNameMatcher.exec( Object.prototype.toString.call( thing ) )[1];
