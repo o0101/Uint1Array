@@ -57,40 +57,70 @@
   Returns the ArrayBuffer referenced by the Uint1Array Fixed at construction time and thus read only.
 
   #### Uint1Array.prototype.byteLength Read only
+
   Returns the length (in bytes) of the Uint1Array. Fixed at construction time and thus read only.
-  Uint1Array.prototype.byteOffset Read only
+
+  #### Uint1Array.prototype.byteOffset Read only
+
   Returns the offset (in bytes) of the Uint1Array from the start of its ArrayBuffer. Fixed at construction time and thus read only.
-  Uint1Array.prototype.length Read only
+  
+  #### Uint1Array.prototype.length Read only
+
   Returns the number of elements held in the Uint1Array. Fixed at construction time and thus read only.
   Methods
 
-  Uint1Array.prototype.copyWithin()
+  #### Uint1Array.prototype.copyWithin()
+
   Copies a sequence of array elements within the array. See also Array.prototype.copyWithin().
-  Uint1Array.prototype.entries()
+
+  #### Uint1Array.prototype.entries()
+
   Returns a new Array Iterator object that contains the key/value pairs for each index in the array. See also Array.prototype.entries().
-  Uint1Array.prototype.every()
+
+  #### Uint1Array.prototype.every()
+
   Tests whether all elements in the array pass the test provided by a function. See also Array.prototype.every().
-  Uint1Array.prototype.fill()
+
+  #### Uint1Array.prototype.fill()
+
   Fills all the elements of an array from a start index to an end index with a static value. See also Array.prototype.fill().
-  Uint1Array.prototype.filter()
+
+  #### Uint1Array.prototype.filter()
+
   Creates a new array with all of the elements of this array for which the provided filtering function returns true. See also Array.prototype.filter().
-  Uint1Array.prototype.find()
+
+  #### Uint1Array.prototype.find()
+
   Returns the found value in the array, if an element in the array satisfies the provided testing function or undefined if not found. See also Array.prototype.find().
-  Uint1Array.prototype.findIndex()
+
+  #### Uint1Array.prototype.findIndex()
+
   Returns the found index in the array, if an element in the array satisfies the provided testing function or -1 if not found. See also Array.prototype.findIndex().
-  Uint1Array.prototype.forEach()
+
+  #### Uint1Array.prototype.forEach()
+
   Calls a function for each element in the array. See also Array.prototype.forEach().
-  Uint1Array.prototype.includes() 
+
+  #### Uint1Array.prototype.includes() 
+
   Determines whether a typed array includes a certain element, returning true or false as appropriate. See also Array.prototype.includes().
-  Uint1Array.prototype.indexOf()
+
+  #### Uint1Array.prototype.indexOf()
+
   Returns the first (least) index of an element within the array equal to the specified value, or -1 if none is found. See also Array.prototype.indexOf().
-  Uint1Array.prototype.join()
+
+  #### Uint1Array.prototype.join()
+
   Joins all elements of an array into a string. See also Array.prototype.join().
-  Uint1Array.prototype.keys()
+
+  #### Uint1Array.prototype.keys()
+
   Returns a new Array Iterator that contains the keys for each index in the array. See also Array.prototype.keys().
-  Uint1Array.prototype.lastIndexOf()
+  #### Uint1Array.prototype.lastIndexOf()
+
   Returns the last (greatest) index of an element within the array equal to the specified value, or -1 if none is found. See also Array.prototype.lastIndexOf().
-  Uint1Array.prototype.map()
+
+  #### Uint1Array.prototype.map()
   Creates a new array with the results of calling a provided function on every element in this array. See also Array.prototype.map().
   Uint1Array.prototype.move()  Unimplemented
   Former non-standard version of Uint1Array.prototype.copyWithin().
