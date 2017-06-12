@@ -170,7 +170,7 @@
 
   > Returns a string representing the array and its elements. See also Array.prototype.toString().
   
-  #### Uint1Array.prototype[@@iterator]()
+  #### Uint1Array.prototype`[@@iterator]()`
   
   > Returns a new Array Iterator object that contains the values for each index in the array.
 
