@@ -14,6 +14,8 @@
     test_display();
     test_methods();
     test_bitfield();
+    test_readme_1();
+    test_readme_2();
   }
 
   function test_display() {
@@ -40,6 +42,21 @@
     console.log( source, bits+'');
     const bitfield = new Uint1Array( source.buffer ); 
     console.log( source, bitfield+'');
+  }
+
+  function test_readme_1() {
+    const coerced_bits = new Uint1Array( [1,2,3,0] );
+    console.log( `${coerced_bits}` ); // Uint1Array [ 1, 1, 1, 0 ]
+  }
+
+  function test_readme_2() {
+    const message = "JAVASCRIPT ROCKS";
+    const byte_values = message.split('').map( c => c.charCodeAt(0) );
+
+    const bytes = new Uint8Array( byte_values );
+    const bit_field = new Uint1Array( bytes.buffer );
+
+    console.log( `${bit_field}` ); // Uint1Array [ ] 
   }
 
   function exec( target, method, ...args ) {
