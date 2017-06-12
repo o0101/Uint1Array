@@ -182,27 +182,28 @@
     // From a length
     var uint8 = new Uint1Array(2);
     uint8[0] = 42;
-    console.log(uint8[0]); // 42
+    console.log(uint8[0]); // 1
     console.log(uint8.length); // 2
-    console.log(uint8.BYTES_PER_ELEMENT); // 1
+    console.log(Uint1Array.BYTES_PER_ELEMENT); // 0.125
 
     // From an array
     var arr = new Uint1Array([21,31]);
-    console.log(arr[1]); // 31
+    console.log(arr[1]); // 1
 
-    // From another TypedArray
-    var x = new Uint1Array([21, 31]);
-    var y = new Uint1Array(x);
-    console.log(y[0]); // 21
+    // From another TypedArray's buffer
+    var x = new Uint8Array([21, 31]);
+    var y = new Uint1Array(x.buffer);
+    console.log(""+y); // Uint1Array [ 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0 ]
 
     // From an ArrayBuffer
     var buffer = new ArrayBuffer(8);
     var z = new Uint1Array(buffer, 1, 4);
 
     // From an iterable 
-    var iterable = function*(){ yield* [1,2,3]; }(); 
+    var iterable = function*(){ yield* [1,0,1]; }(); 
     var uint8 = new Uint1Array(iterable); 
-    // Uint1Array[1, 2, 3]
+    console.log( ""+uint8 );
+    // Uint1Array[1, 0, 1]
   ```
 
 

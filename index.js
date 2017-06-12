@@ -11,7 +11,7 @@
     "Float32Array",
     "Float64Array"
   ]);
-  const INTERNAL_FORMAT = Uint32Array;
+  const INTERNAL_FORMAT = Uint8Array;
   const $ = Symbol("[[Uint1ArrayInternal]]");
 
   // Uint1Array internals : toArray, getBit, setBit 
@@ -133,7 +133,7 @@
             default:
               temp = create_from_iterable( arg );
               privates = new Uint1ArrayPrivates( this, { length : temp.length } );
-              temp.forEach( (val, i) => privates.setBit( i, val ) );
+              temp.forEach( (val, i) => privates.setBit( i, toBit( val ) ) );
               break;
           }
 
@@ -333,8 +333,7 @@
         set( _, slot, value, surface ) {
           const i = typeof slot == "string" ? parseInt(slot) : slot;
           if ( Number.isInteger( i ) ) {
-            const bit = toBit( value );
-            privates.setBit( i, value );
+            privates.setBit( i, toBit( value ) );
             return true;
           } else {
             return Reflect.set( typed_array_api, slot, value );

@@ -16,6 +16,7 @@
     test_bitfield();
     test_readme_1();
     test_readme_2();
+    test_readme_3();
   }
 
   function test_display() {
@@ -57,6 +58,34 @@
     const bit_field = new Uint1Array( bytes.buffer );
 
     console.log( `${bit_field}` ); // Uint1Array [ ] 
+  }
+
+  function test_readme_3() {
+    // From a length
+    var uint8 = new Uint1Array(2);
+    uint8[0] = 42;
+    console.log(uint8[0]); // 1
+    console.log(uint8.length); // 2
+    console.log(Uint1Array.BYTES_PER_ELEMENT); // 0.125
+
+    // From an array
+    var arr = new Uint1Array([21,31]);
+    console.log(arr[1]); // 1
+
+    // From another TypedArray's buffer
+    var x = new Uint8Array([21, 31]);
+    var y = new Uint1Array(x.buffer);
+    console.log(""+y); // 
+
+    // From an ArrayBuffer
+    var buffer = new ArrayBuffer(8);
+    var z = new Uint1Array(buffer, 1, 4);
+
+    // From an iterable 
+    var iterable = function*(){ yield* [1,0,1]; }(); 
+    var uint8 = new Uint1Array(iterable); 
+    console.log( ""+uint8 );
+    // Uint1Array[1, 0, 1]
   }
 
   function exec( target, method, ...args ) {
