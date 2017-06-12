@@ -1,6 +1,6 @@
 # Uint1Array
 
-JavaScript's Missing TypedArray 
+## JavaScript's Missing TypedArray 
 
 [![https://nodei.co/npm/YOUR-MODULE-NAME.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/tifuhash.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/tifuhash)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dosaygo-coder-0/tifuhash/issues)
@@ -8,10 +8,10 @@ JavaScript's Missing TypedArray
  
   ```js
     // From a length
-    var uint8 = new Uint1Array(2);
-    uint8[0] = 42;
-    console.log(uint8[0]); // 1
-    console.log(uint8.length); // 2
+    var uint1 = new Uint1Array(2);
+    uint1[0] = 42;
+    console.log(uint1[0]); // 1
+    console.log(uint1.length); // 2
     console.log(Uint1Array.BYTES_PER_ELEMENT); // 0.125
 
     // From an array
@@ -29,8 +29,8 @@ JavaScript's Missing TypedArray
 
     // From an iterable 
     var iterable = function*(){ yield* [1,0,1]; }(); 
-    var uint8 = new Uint1Array(iterable); 
-    console.log( ""+uint8 );
+    var uint1 = new Uint1Array(iterable); 
+    console.log( ""+uint1 );
     // Uint1Array[1, 0, 1]
   ```
  
