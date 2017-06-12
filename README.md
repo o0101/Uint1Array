@@ -18,163 +18,161 @@
 
   #### Uint1Array.BYTES_PER_ELEMENT
 
-  Returns a number value of the element size. 0.125 in the case of an Uint1Array.
+  > Returns a number value of the element size. 0.125 in the case of an Uint1Array.
 
   #### Uint1Array.length
 
-  Static length property whose value is 0. For the actual length (number of elements), see Uint1Array.prototype.length.
+  > Static length property whose value is 0. For the actual length (number of elements), see Uint1Array.prototype.length.
 
   #### Uint1Array.name
 
-  Returns the string value of the constructor name. In the case of the Uint1Array type: "Uint1Array".
+  > Returns the string value of the constructor name. In the case of the Uint1Array type: "Uint1Array".
 
   #### Uint1Array.prototype
 
-  Prototype for the TypedArray objects.
+  > Prototype for the TypedArray objects.
 
   ## Methods
 
   #### Uint1Array.from()
 
-  Creates a new Uint1Array from an array-like or iterable object. See also Array.from().
+  > Creates a new Uint1Array from an array-like or iterable object. See also Array.from().
 
   #### Uint1Array.of()
   
-  Creates a new Uint1Array with a variable number of arguments. See also Array.of().
+  > Creates a new Uint1Array with a variable number of arguments. See also Array.of().
 
   ## Uint1Array prototype
 
-  All Uint1Array objects inherit from %TypedArray%.prototype.
+  > All Uint1Array objects inherit from %TypedArray%.prototype.
 
   ## Properties
 
   #### Uint1Array.prototype.constructor
 
-  Returns the function that created an instance's prototype. This is the Uint1Array constructor by default.
+  > Returns the function that created an instance's prototype. This is the Uint1Array constructor by default.
 
   #### Uint1Array.prototype.buffer Read only
 
-  Returns the ArrayBuffer referenced by the Uint1Array Fixed at construction time and thus read only.
+  > Returns the ArrayBuffer referenced by the Uint1Array Fixed at construction time and thus read only.
 
   #### Uint1Array.prototype.byteLength Read only
 
-  Returns the length (in bytes) of the Uint1Array. Fixed at construction time and thus read only.
+  > Returns the length (in bytes) of the Uint1Array. Fixed at construction time and thus read only.
 
   #### Uint1Array.prototype.byteOffset Read only
 
-  Returns the offset (in bytes) of the Uint1Array from the start of its ArrayBuffer. Fixed at construction time and thus read only.
+  > Returns the offset (in bytes) of the Uint1Array from the start of its ArrayBuffer. Fixed at construction time and thus read only.
   
   #### Uint1Array.prototype.length Read only
 
-  Returns the number of elements held in the Uint1Array. Fixed at construction time and thus read only.
+  > Returns the number of elements held in the Uint1Array. Fixed at construction time and thus read only.
 
   ## Methods
 
   #### Uint1Array.prototype.copyWithin()
 
-  Copies a sequence of array elements within the array. See also Array.prototype.copyWithin().
+  > Copies a sequence of array elements within the array. See also Array.prototype.copyWithin().
 
   #### Uint1Array.prototype.entries()
 
-  Returns a new Array Iterator object that contains the key/value pairs for each index in the array. See also Array.prototype.entries().
+  > Returns a new Array Iterator object that contains the key/value pairs for each index in the array. See also Array.prototype.entries().
 
   #### Uint1Array.prototype.every()
 
-  Tests whether all elements in the array pass the test provided by a function. See also Array.prototype.every().
+  > Tests whether all elements in the array pass the test provided by a function. See also Array.prototype.every().
 
   #### Uint1Array.prototype.fill()
 
-  Fills all the elements of an array from a start index to an end index with a static value. See also Array.prototype.fill().
+  > Fills all the elements of an array from a start index to an end index with a static value. See also Array.prototype.fill().
 
   #### Uint1Array.prototype.filter()
 
-  Creates a new array with all of the elements of this array for which the provided filtering function returns true. See also Array.prototype.filter().
+  > Creates a new array with all of the elements of this array for which the provided filtering function returns true. See also Array.prototype.filter().
 
   #### Uint1Array.prototype.find()
 
-  Returns the found value in the array, if an element in the array satisfies the provided testing function or undefined if not found. See also Array.prototype.find().
+  > Returns the found value in the array, if an element in the array satisfies the provided testing function or undefined if not found. See also Array.prototype.find().
 
   #### Uint1Array.prototype.findIndex()
 
-  Returns the found index in the array, if an element in the array satisfies the provided testing function or -1 if not found. See also Array.prototype.findIndex().
+  > Returns the found index in the array, if an element in the array satisfies the provided testing function or -1 if not found. See also Array.prototype.findIndex().
 
   #### Uint1Array.prototype.forEach()
 
-  Calls a function for each element in the array. See also Array.prototype.forEach().
+  > Calls a function for each element in the array. See also Array.prototype.forEach().
 
   #### Uint1Array.prototype.includes() 
 
-  Determines whether a typed array includes a certain element, returning true or false as appropriate. See also Array.prototype.includes().
+  > Determines whether a typed array includes a certain element, returning true or false as appropriate. See also Array.prototype.includes().
 
   #### Uint1Array.prototype.indexOf()
 
-  Returns the first (least) index of an element within the array equal to the specified value, or -1 if none is found. See also Array.prototype.indexOf().
+  > Returns the first (least) index of an element within the array equal to the specified value, or -1 if none is found. See also Array.prototype.indexOf().
 
   #### Uint1Array.prototype.join()
 
-  Joins all elements of an array into a string. See also Array.prototype.join().
+  > Joins all elements of an array into a string. See also Array.prototype.join().
 
   #### Uint1Array.prototype.keys()
 
-  Returns a new Array Iterator that contains the keys for each index in the array. See also Array.prototype.keys().
+  > Returns a new Array Iterator that contains the keys for each index in the array. See also Array.prototype.keys().
+  
   #### Uint1Array.prototype.lastIndexOf()
 
-  Returns the last (greatest) index of an element within the array equal to the specified value, or -1 if none is found. See also Array.prototype.lastIndexOf().
+  > Returns the last (greatest) index of an element within the array equal to the specified value, or -1 if none is found. See also Array.prototype.lastIndexOf().
 
   #### Uint1Array.prototype.map()
-  Creates a new array with the results of calling a provided function on every element in this array. See also Array.prototype.map().
-
-  #### Uint1Array.prototype.move()  Unimplemented
-
-  Former non-standard version of Uint1Array.prototype.copyWithin().
+  
+  > Creates a new array with the results of calling a provided function on every element in this array. See also Array.prototype.map().
 
   #### Uint1Array.prototype.reduce()
 
-  Apply a function against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value. See also Array.prototype.reduce().
+  > Apply a function against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value. See also Array.prototype.reduce().
 
   #### Uint1Array.prototype.reduceRight()
 
-  Apply a function against an accumulator and each value of the array (from right-to-left) as to reduce it to a single value. See also Array.prototype.reduceRight().
+  > Apply a function against an accumulator and each value of the array (from right-to-left) as to reduce it to a single value. See also Array.prototype.reduceRight().
 
   #### Uint1Array.prototype.reverse()
 
-  Reverses the order of the elements of an array — the first becomes the last, and the last becomes the first. See also Array.prototype.reverse().
+  > Reverses the order of the elements of an array — the first becomes the last, and the last becomes the first. See also Array.prototype.reverse().
 
   #### Uint1Array.prototype.set()
   
-  Stores multiple values in the typed array, reading input values from a specified array.
+  > Stores multiple values in the typed array, reading input values from a specified array.
 
   #### Uint1Array.prototype.slice()
 
-  Extracts a section of an array and returns a new array. See also Array.prototype.slice().
+  > Extracts a section of an array and returns a new array. See also Array.prototype.slice().
   
   #### Uint1Array.prototype.some()
 
-  Returns true if at least one element in this array satisfies the provided testing function. See also Array.prototype.some().
+  > Returns true if at least one element in this array satisfies the provided testing function. See also Array.prototype.some().
 
   #### Uint1Array.prototype.sort()
 
-  Sorts the elements of an array in place and returns the array. See also Array.prototype.sort().
+  > Sorts the elements of an array in place and returns the array. See also Array.prototype.sort().
 
   #### Uint1Array.prototype.subarray()
 
-  Returns a new Uint1Array from the given start and end element index.
+  > Returns a new Uint1Array from the given start and end element index.
 
   #### Uint1Array.prototype.values()
 
-  Returns a new Array Iterator object that contains the values for each index in the array. See also Array.prototype.values().
+  > Returns a new Array Iterator object that contains the values for each index in the array. See also Array.prototype.values().
   
   #### Uint1Array.prototype.toLocaleString()
 
-  Returns a localized string representing the array and its elements. See also Array.prototype.toLocaleString().
+  > Returns a localized string representing the array and its elements. See also Array.prototype.toLocaleString().
 
   #### Uint1Array.prototype.toString()
 
-  Returns a string representing the array and its elements. See also Array.prototype.toString().
+  > Returns a string representing the array and its elements. See also Array.prototype.toString().
   
   #### Uint1Array.prototype[@@iterator]()
   
-  Returns a new Array Iterator object that contains the values for each index in the array.
+  > Returns a new Array Iterator object that contains the values for each index in the array.
 
   ## Examples
 
