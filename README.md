@@ -18,19 +18,19 @@
 
   #### Uint1Array.BYTES_PER_ELEMENT
 
-  Returns a number value of the element size. 0.125 in the case of an Uint1Array.
+  > Returns a number value of the element size. 0.125 in the case of an Uint1Array.
 
   #### Uint1Array.length
 
-  Static length property whose value is 0. For the actual length (number of elements), see Uint1Array.prototype.length.
+  > Static length property whose value is 0. For the actual length (number of elements), see Uint1Array.prototype.length.
 
   #### Uint1Array.name
 
-  Returns the string value of the constructor name. In the case of the Uint1Array type: "Uint1Array".
+  > Returns the string value of the constructor name. In the case of the Uint1Array type: "Uint1Array".
 
   #### Uint1Array.prototype
 
-  Prototype for the TypedArray objects.
+  > Prototype for the TypedArray objects.
 
   ## Methods
 
