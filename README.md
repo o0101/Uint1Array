@@ -1,5 +1,42 @@
-# Uint1Array - JavaScript's Missing TypedArray 
+# Uint1Array
 
+JavaScript's Missing TypedArray 
+
+[![https://nodei.co/npm/YOUR-MODULE-NAME.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/tifuhash.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/tifuhash)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dosaygo-coder-0/tifuhash/issues)
+ 
+ 
+  ```js
+    // From a length
+    var uint8 = new Uint1Array(2);
+    uint8[0] = 42;
+    console.log(uint8[0]); // 1
+    console.log(uint8.length); // 2
+    console.log(Uint1Array.BYTES_PER_ELEMENT); // 0.125
+
+    // From an array
+    var arr = new Uint1Array([21,31]);
+    console.log(arr[1]); // 1
+
+    // From another TypedArray's buffer
+    var x = new Uint8Array([21, 31]);
+    var y = new Uint1Array(x.buffer);
+    console.log(""+y); // Uint1Array [ 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0 ]
+
+    // From an ArrayBuffer
+    var buffer = new ArrayBuffer(8);
+    var z = new Uint1Array(buffer, 1, 4);
+
+    // From an iterable 
+    var iterable = function*(){ yield* [1,0,1]; }(); 
+    var uint8 = new Uint1Array(iterable); 
+    console.log( ""+uint8 );
+    // Uint1Array[1, 0, 1]
+  ```
+ 
+ 
+ # Javascript's Missing Typed Array
+  
   The Uint1Array typed array represents an array of 1-bit unsigned integers. The contents are initialized to 0. Once established, you can reference elements in the array using the object's methods, or using standard array index syntax (that is, using bracket notation).
 
   ## Syntax
