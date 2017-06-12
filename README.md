@@ -67,7 +67,8 @@
   #### Uint1Array.prototype.length Read only
 
   Returns the number of elements held in the Uint1Array. Fixed at construction time and thus read only.
-  Methods
+
+  ## Methods
 
   #### Uint1Array.prototype.copyWithin()
 
@@ -122,59 +123,89 @@
 
   #### Uint1Array.prototype.map()
   Creates a new array with the results of calling a provided function on every element in this array. See also Array.prototype.map().
-  Uint1Array.prototype.move()  Unimplemented
+
+  #### Uint1Array.prototype.move()  Unimplemented
+
   Former non-standard version of Uint1Array.prototype.copyWithin().
-  Uint1Array.prototype.reduce()
+
+  #### Uint1Array.prototype.reduce()
+
   Apply a function against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value. See also Array.prototype.reduce().
-  Uint1Array.prototype.reduceRight()
+
+  #### Uint1Array.prototype.reduceRight()
+
   Apply a function against an accumulator and each value of the array (from right-to-left) as to reduce it to a single value. See also Array.prototype.reduceRight().
-  Uint1Array.prototype.reverse()
+
+  #### Uint1Array.prototype.reverse()
+
   Reverses the order of the elements of an array — the first becomes the last, and the last becomes the first. See also Array.prototype.reverse().
-  Uint1Array.prototype.set()
+
+  #### Uint1Array.prototype.set()
+  
   Stores multiple values in the typed array, reading input values from a specified array.
-  Uint1Array.prototype.slice()
+
+  #### Uint1Array.prototype.slice()
+
   Extracts a section of an array and returns a new array. See also Array.prototype.slice().
-  Uint1Array.prototype.some()
+  
+  #### Uint1Array.prototype.some()
+
   Returns true if at least one element in this array satisfies the provided testing function. See also Array.prototype.some().
-  Uint1Array.prototype.sort()
+
+  #### Uint1Array.prototype.sort()
+
   Sorts the elements of an array in place and returns the array. See also Array.prototype.sort().
-  Uint1Array.prototype.subarray()
+
+  #### Uint1Array.prototype.subarray()
+
   Returns a new Uint1Array from the given start and end element index.
-  Uint1Array.prototype.values()
+
+  #### Uint1Array.prototype.values()
+
   Returns a new Array Iterator object that contains the values for each index in the array. See also Array.prototype.values().
-  Uint1Array.prototype.toLocaleString()
+  
+  #### Uint1Array.prototype.toLocaleString()
+
   Returns a localized string representing the array and its elements. See also Array.prototype.toLocaleString().
-  Uint1Array.prototype.toString()
+
+  #### Uint1Array.prototype.toString()
+
   Returns a string representing the array and its elements. See also Array.prototype.toString().
-  Uint1Array.prototype[@@iterator]()
+  
+  #### Uint1Array.prototype[@@iterator]()
+  
   Returns a new Array Iterator object that contains the values for each index in the array.
-  ExamplesEDIT
+
+  ## Examples
+
   Different ways to create a Uint1Array:
 
-  // From a length
-  var uint8 = new Uint1Array(2);
-  uint8[0] = 42;
-  console.log(uint8[0]); // 42
-  console.log(uint8.length); // 2
-  console.log(uint8.BYTES_PER_ELEMENT); // 1
+  ```js
+    // From a length
+    var uint8 = new Uint1Array(2);
+    uint8[0] = 42;
+    console.log(uint8[0]); // 42
+    console.log(uint8.length); // 2
+    console.log(uint8.BYTES_PER_ELEMENT); // 1
 
-  // From an array
-  var arr = new Uint1Array([21,31]);
-  console.log(arr[1]); // 31
+    // From an array
+    var arr = new Uint1Array([21,31]);
+    console.log(arr[1]); // 31
 
-  // From another TypedArray
-  var x = new Uint1Array([21, 31]);
-  var y = new Uint1Array(x);
-  console.log(y[0]); // 21
+    // From another TypedArray
+    var x = new Uint1Array([21, 31]);
+    var y = new Uint1Array(x);
+    console.log(y[0]); // 21
 
-  // From an ArrayBuffer
-  var buffer = new ArrayBuffer(8);
-  var z = new Uint1Array(buffer, 1, 4);
+    // From an ArrayBuffer
+    var buffer = new ArrayBuffer(8);
+    var z = new Uint1Array(buffer, 1, 4);
 
-  // From an iterable 
-  var iterable = function*(){ yield* [1,2,3]; }(); 
-  var uint8 = new Uint1Array(iterable); 
-  // Uint1Array[1, 2, 3]
+    // From an iterable 
+    var iterable = function*(){ yield* [1,2,3]; }(); 
+    var uint8 = new Uint1Array(iterable); 
+    // Uint1Array[1, 2, 3]
+  ```
 
 
 # Why ? 
