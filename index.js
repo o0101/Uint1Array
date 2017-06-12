@@ -194,9 +194,15 @@
 
       // Method slots on the instance
 
-        copyWithin( ...args ) {
-          //FIXME rewrite
-          this[$].toArray().copyWithin( ...args );
+        copyWithin( targetStart, sourceStart = 0, sourceEnd = this.length ) {
+          if ( ! Number.isInteger( targetStart ) ) {
+            return this;
+          }
+          const temp = new Uint8Array( sourceEnd - sourceStart );
+          for( let i = sourceStart; i < sourceEnd; i++ ) {
+            temp[i-sourceStart] = this[i];
+          }
+          this.set( temp, targetStart );
           return this;
         }
 
@@ -208,9 +214,10 @@
           return this[$].toArray().every( ...args );
         }
 
-        fill( ...args ) {
-          // FIXME rewrite
-          this[$].toArray().fill( ...args );
+        fill( value, start = 0, end = this.length ) {
+          for( let i = start; i < end; i++ ) {
+            this[i] = value;
+          }
           return this;
         }
 
@@ -269,8 +276,12 @@
         }
 
         set( arr, offset = 0 ) {
-          //TODO : this has to be very solid
+          if ( ! Number.isInteger( offset ) ) {
+            return;
+          }
+
           const typeName = resolveTypeName(arr);
+
           // returning without doing nothing if the argument is 
           // neither an array nor a typedarray seems to be the 
           // implemented behaviour in the browser for <TypedArray>.set
@@ -290,7 +301,6 @@
         }
 
         sort( ...args ) {
-          console.log( this, this[$], $ );
           const sorting = this[$].toArray().sort( ...args );
           this.set( sorting );
           return this;
