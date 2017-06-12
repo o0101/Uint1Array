@@ -6,20 +6,36 @@
 
   // Node or browser, either is fine
 
-  // FIXME : remove after testing complete 
-  //try { module.exports = Uint1Array; } catch( e ) { Object.assign( self, { Uint1Array } ); }
+  try { module.exports = Uint1Array; } catch( e ) { Object.assign( self, { Uint1Array } ); }
 
   // classes 
 
     class Uint1ArrayPrivates {
-      constructor( publics, length ) {
+      constructor( publics, { length : length = null, view : view = null, 
+                  buffer : buffer = null, byteOffset : byteOffset = 0, 
+                  byteLength : byteLength = null } = {} ) {
+
+        let internal;
+        if ( length == null ) length = 0;
+
         const wordSize = INTERNAL_FORMAT.BYTES_PER_ELEMENT * 8;
         const wordSizeMask = wordSize - 1;
         const wordSizeShift = msb_index( wordSize );
         const wordCount = ( length + wordSizeMask ) >> wordSizeShift;
-        const internal = new INTERNAL_FORMAT( wordCount );
+
+        if ( !! view && !! buffer ) {
+          internal = view;
+          byteOffset = view.byteOffset;
+        } else {
+          buffer = new ArrayBuffer( wordSize * wordCount );
+          internal = new INTERNAL_FORMAT( buffer );
+        }
+
         let changed = true;
+
         Object.assign( this, {
+          buffer, 
+          byteOffset,
           changed,
           length,
           wordSize,
@@ -70,17 +86,52 @@
     class Uint1ArrayPublics {
       // Uint1Array constructor 
       
-        constructor( thing ) {
+        constructor( arg , byteOffset, byteLength ) {
           // find the constructor invocation
-          const typeName = resolveTypeName( thing );
+          const argType = resolveTypeName(arg);
           
+          let length, privates;
+
+          switch( argType ) {
+            case "Number":
+              arg = ~~arg; // integer part only
+              length = arg;
+              privates = new Uint1ArrayPrivates( this, { length } );
+              break;
+            case "ArrayBuffer":
+              const buffer = arg;
+              const view = new INTERNAL_FORMAT( buffer, byteOffset, byteLength );
+              length = view.BYTES_PER_ELEMENT * view.length;
+              privates = new Uint1ArrayPrivates( this, { view, length, buffer } );
+              break;
+            case "Int8Array":
+            case "Uint8Array":
+            case "Uint8ClampedArray":
+            case "Int16Array":
+            case "Uint16Array":
+            case "Int32Array":
+            case "UInt32Array":
+            case "Float32Array":
+            case "Float64Array":
+              length = arg.length * arg.BYTES_PER_ELEMENT; 
+              view = arg;
+              privates = new Uint1ArrayPrivates( this, { view, length, buffer : view.buffer } );
+            case "Undefined":
+            case "Null":
+            case "RegExp":
+            case "Infinity":
+              arg = null;
+              length = 0;
+              privates = new Uint1ArrayPrivates( this, { length } );
+              break;
+            case "Object":
+            default:
+              return Uint1Array.from( arg );
+              break;
+          }
+
           // for private internal properties
-          const length = thing;
-          const privates = new Uint1ArrayPrivates( this, length );
-          // testing
-          Object.defineProperty( this, 'p', { get: () => privates } );
           Object.defineProperty( this, $, { get: () => privates } );
-          console.log("pubs", this, $, privates );
           return this;
         }
       
@@ -118,7 +169,7 @@
           return this.from( items );
         }
 
-        // Property slots on the instances
+      // Property slots on the instances
 
         get buffer() {
           return this[$].buffer;
@@ -129,7 +180,7 @@
         }
 
         get byteOffset() {
-          return 0;
+          return this[$].byteOffset;
         }
 
         get length() {
@@ -139,6 +190,7 @@
       // Method slots on the instance
 
         copyWithin( ...args ) {
+          //FIXME rewrite
           this[$].toArray().copyWithin( ...args );
           return this;
         }
@@ -152,6 +204,7 @@
         }
 
         fill( ...args ) {
+          // FIXME rewrite
           this[$].toArray().fill( ...args );
           return this;
         }
@@ -243,18 +296,16 @@
         }
     }
 
-    class Uint1Array {
-      constructor( arg ) {
-        const api = new Uint1ArrayPublics( arg );
-        const accessorProxy = new AccessorProxy( api );
-        this.__proto__ = accessorProxy;
-        return this;
-      }
+    function Uint1Array( arg, byteOffset = 0, length = null ) {
+      const api = new Uint1ArrayPublics( arg, byteOffset, length );
+      const accessorProxy = new BracketAccessorProxy( api );
+      this.__proto__ = accessorProxy;
+      return this;
     }
 
-  // accessor proxy 
+  // array bracket-accessor proxy 
 
-    function AccessorProxy( typed_array_api ) {
+    function BracketAccessorProxy( typed_array_api ) {
       const privates = typed_array_api[$];
       const array_accessor_handler = {
         get( _, slot, surface ) {
@@ -304,16 +355,4 @@
     function resolveTypeName( thing ) {
       return typeNameMatcher.exec( Object.prototype.toString.call( thing ) )[1];
     }
-  
-  (function () {
-    const x = new Uint1Array(4);
-    console.log("OK", x );
-    x[0] = 0;
-    x[1] = 1;
-    x[2] = 1;
-    console.log("x", x );
-    console.log( "x1", x[$].getBit(1) );
-  }());
-
-  module.exports = Uint1Array;
 }
