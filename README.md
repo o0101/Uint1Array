@@ -16,29 +16,29 @@
 
   ## Properties
 
-  ### Uint1Array.BYTES_PER_ELEMENT
+  #### Uint1Array.BYTES_PER_ELEMENT
 
   Returns a number value of the element size. 0.125 in the case of an Uint1Array.
 
-  ### Uint1Array.length
+  #### Uint1Array.length
 
   Static length property whose value is 0. For the actual length (number of elements), see Uint1Array.prototype.length.
 
-  ### Uint1Array.name
+  #### Uint1Array.name
 
   Returns the string value of the constructor name. In the case of the Uint1Array type: "Uint1Array".
 
-  ### Uint1Array.prototype
+  #### Uint1Array.prototype
 
   Prototype for the TypedArray objects.
 
   ## Methods
 
-  ### Uint1Array.from()
+  #### Uint1Array.from()
 
   Creates a new Uint1Array from an array-like or iterable object. See also Array.from().
 
-  ### Uint1Array.of()
+  #### Uint1Array.of()
   
   Creates a new Uint1Array with a variable number of arguments. See also Array.of().
 
@@ -48,15 +48,15 @@
 
   ## Properties
 
-  ### Uint1Array.prototype.constructor
+  #### Uint1Array.prototype.constructor
 
   Returns the function that created an instance's prototype. This is the Uint1Array constructor by default.
 
-  ### Uint1Array.prototype.buffer Read only
+  #### Uint1Array.prototype.buffer Read only
 
   Returns the ArrayBuffer referenced by the Uint1Array Fixed at construction time and thus read only.
 
-  ### Uint1Array.prototype.byteLength Read only
+  #### Uint1Array.prototype.byteLength Read only
   Returns the length (in bytes) of the Uint1Array. Fixed at construction time and thus read only.
   Uint1Array.prototype.byteOffset Read only
   Returns the offset (in bytes) of the Uint1Array from the start of its ArrayBuffer. Fixed at construction time and thus read only.
