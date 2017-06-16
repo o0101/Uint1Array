@@ -58,7 +58,7 @@
         if ( ! this.changed ) {
           return this.array;
         }
-        const array = this.array = new Array( this.length );
+        const array = this.array = new Uint8Array( this.length );
         for( let i = 0; i < this.length; i++ ) {
           array[i] = this.getBit(i);
         }
