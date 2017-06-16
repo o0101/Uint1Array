@@ -92,5 +92,4 @@
     const result = target[method](...args);
     return result.join('');
   }
-
 }

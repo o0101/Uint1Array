@@ -40,35 +40,37 @@
           buffer = new ArrayBuffer( wordBytes * wordCount );
           internal = new INTERNAL_FORMAT( buffer );
         }
-
-        let changed = true;
-
+        
         Object.assign( this, {
           buffer, 
           byteOffset,
-          changed,
           length,
           wordSize,
+          wordCount,
           wordSizeMask,
           wordSizeShift,
           internal
         });
       }
       toArray() {
-        const array = this.array = new Array( this.length );
-        for( let i = 0; i < this.length; i++ ) {
-          array[i] = this.getBit(i);
+        const array = new Uint8Array( this.length );
+        for( let j = 0; j < this.wordCount; j++ ) {
+          const word = this.internal[j];
+          for( let i = j*this.wordSize; i < (j+1)*this.wordSize; i++ ) {
+            array[i] = this.getBit( i, word );
+          }
         }
-        this.changed = false;
         return array;
       }
-      getBit( i ) {
+      getBit( i, word ) {
         if ( i >= this.length ) {
           return;
         }
-        const word_number = i >> this.wordSizeShift;
         const word_offset = i & this.wordSizeMask;
-        const word = this.internal[word_number];
+        if ( word == undefined ) {
+          const word_number = i >> this.wordSizeShift;
+          word = this.internal[word_number];
+        }
         const bit = (word >> word_offset)&1;
         return bit;
       }
@@ -83,7 +85,6 @@
         new_word |= ( bit << word_offset ); // make it 1 if 1, no change if 0
         new_word &= ~((~bit&1) << word_offset ); // make it 0 if 0, no change if 1
         if ( word !== new_word ) {
-          this.changed = true;
           this.internal[word_number] = new_word;
         }
         return bit;
@@ -384,8 +385,6 @@
     function toBit( thing ) {
       return !! thing ? 1 : 0;
     }
-
-    
 
     function resolveTypeName( thing ) {
       return typeNameMatcher.exec( Object.prototype.toString.call( thing ) )[1];
