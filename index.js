@@ -1,6 +1,7 @@
 "use strict";
 {
   const TYPED_ARRAYS = new Set([
+    "Uint1Array",
     "Int8Array",
     "Uint8Array",
     "Uint8ClampedArray",
@@ -284,6 +285,7 @@
           // neither an array nor a typedarray seems to be the 
           // implemented behaviour in the browser for <TypedArray>.set
           // and we do not differ here
+          console.log(typeName);
           if ( typeName !== "Array" && ! TYPED_ARRAYS.has( typeName ) ) {
             return;
           }
@@ -387,7 +389,10 @@
     }
 
     function resolveTypeName( thing ) {
-      return typeNameMatcher.exec( Object.prototype.toString.call( thing ) )[1];
+      const cname = thing.constructor ? thing.constructor.name : null;
+      const tname = typeNameMatcher.exec( Object.prototype.toString.call( thing ) )[1];
+      if ( tname !== cname && !! cname ) return cname;
+      return tname;
     }
 
   // Node or browser, either is fine
