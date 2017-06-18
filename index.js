@@ -285,7 +285,6 @@
           // neither an array nor a typedarray seems to be the 
           // implemented behaviour in the browser for <TypedArray>.set
           // and we do not differ here
-          console.log(typeName);
           if ( typeName !== "Array" && ! TYPED_ARRAYS.has( typeName ) ) {
             return;
           }
