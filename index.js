@@ -191,7 +191,7 @@
           return this[$].length;
         }
 
-      // Method slots on the instance
+      // Method slots on the instance ( STANDARD as per the TypedArray Spec )
 
         copyWithin( targetStart, sourceStart = 0, sourceEnd = this.length ) {
           if ( ! Number.isInteger( targetStart ) ) {
@@ -323,6 +323,16 @@
 
         [Symbol.iterator]() {
           return this[$].toArray()[Symbol.iterator]();
+        }
+      
+      // Method slots on the instances ( NON STANDARD )
+
+        // This behaviour is chosen ( to return an Array for JSON stringification )
+        // because I decided that the behaviour of TypedArrays to return an object
+        // with numeric properties such as {0: 0, 1:0, 2:1} didn't work and was crap.
+
+        toJSON() {
+          return Array.from(this);
         }
     }
 
