@@ -19,12 +19,14 @@
 
     class Uint1ArrayPrivates {
       constructor( publics, { length : length = null,
-                  buffer : buffer = null, byteOffset : byteOffset = 0 } = {} ) {
+                  buffer : buffer = null,
+                  byteOffset : byteOffset = 0,
+                  byteLength : byteLength = null} = {} ) {
 
         let internal;
 
         if ( !! buffer ) {
-          length = buffer.byteLength * 8;
+          length = (byteLength || buffer.byteLength) * 8;
         } else if ( ! length ) {
           length = 0;
         }
@@ -33,8 +35,8 @@
         const wordSize = wordBytes * 8;
         const wordSizeMask = wordSize - 1;
         const wordSizeShift = msb_index( wordSize );
-        const wordCount = ( length + wordSizeMask ) >> wordSizeShift;
-
+        const wordCount = Math.max(
+          1, ( length + wordSizeMask ) >> wordSizeShift)
         if ( !! buffer ) {
           internal = new INTERNAL_FORMAT( buffer, byteOffset, wordCount );
         } else  {
@@ -108,7 +110,8 @@
               break;
             case "ArrayBuffer":
               const buffer = arg;
-              privates = new Uint1ArrayPrivates( this, { buffer } );
+              privates = new Uint1ArrayPrivates( this, {
+                buffer, byteOffset, byteLength } );
               break;
             case "Undefined":
             case "Null":
