@@ -141,7 +141,7 @@
 
           // for private access to internal properties
 
-          Object.defineProperty( this, $, { get: () => privates } );
+          this[$] = privates;
 
           // proxy for array-like bracket-accessor via index
 
