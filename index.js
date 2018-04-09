@@ -15,10 +15,10 @@
   const INTERNAL_FORMAT = Uint8Array;
   const $ = Symbol("[[Uint1ArrayInternal]]");
 
-  // Uint1Array internals : toArray, getBit, setBit 
+  // Uint1Array internals : toArray, getBit, setBit
 
     class Uint1ArrayPrivates {
-      constructor( publics, { length : length = null, 
+      constructor( publics, { length : length = null,
                   buffer : buffer = null, byteOffset : byteOffset = 0 } = {} ) {
 
         let internal;
@@ -41,9 +41,9 @@
           buffer = new ArrayBuffer( wordBytes * wordCount );
           internal = new INTERNAL_FORMAT( buffer );
         }
-        
+
         Object.assign( this, {
-          buffer, 
+          buffer,
           byteOffset,
           length,
           wordSize,
@@ -93,11 +93,11 @@
     }
 
     class Uint1Array {
-      // Uint1Array constructor 
-      
+      // Uint1Array constructor
+
         constructor( arg , byteOffset = 0, byteLength = null ) {
           const argType = resolveTypeName(arg);
-          
+
           let length, privates, temp;
 
           switch( argType ) {
@@ -138,7 +138,7 @@
 
           // for private access to internal properties
 
-          Object.defineProperty( this, $, { get: () => privates } );
+          this[$] = privates;
 
           // proxy for array-like bracket-accessor via index
 
@@ -162,7 +162,7 @@
           return this;
         }
 
-      // Static method slots on the constructor 
+      // Static method slots on the constructor
 
         static from( iterable ) {
           const temp = create_from_iterable( iterable );
@@ -172,7 +172,7 @@
         static of( ...items ) {
           return Uint1Array.from( items );
         }
-      
+
       // Property slots on the instances
 
         get buffer() {
@@ -281,8 +281,8 @@
 
           const typeName = resolveTypeName(arr);
 
-          // returning without doing nothing if the argument is 
-          // neither an array nor a typedarray seems to be the 
+          // returning without doing nothing if the argument is
+          // neither an array nor a typedarray seems to be the
           // implemented behaviour in the browser for <TypedArray>.set
           // and we do not differ here
           if ( typeName !== "Array" && ! TYPED_ARRAYS.has( typeName ) ) {
@@ -324,7 +324,7 @@
         [Symbol.iterator]() {
           return this[$].toArray()[Symbol.iterator]();
         }
-      
+
       // Method slots on the instances ( NON STANDARD )
 
         // This behaviour is chosen ( to return an Array for JSON stringification )
@@ -336,7 +336,7 @@
         }
     }
 
-  // array bracket-accessor proxy 
+  // array bracket-accessor proxy
 
     function BracketAccessorProxy( typed_array_api ) {
       const privates = typed_array_api[$];
@@ -363,7 +363,7 @@
     }
 
   // helpers
-    
+
     const typeNameMatcher = /\[object (\w+)]/;
 
     function create_from_iterable( iterable ) {
@@ -379,7 +379,7 @@
 
     function format( u1 ) {
       let connector = ', ';
-      if ( u1.length > 10 ) { 
+      if ( u1.length > 10 ) {
         connector = ',\n\t';
       }
       return `Uint1Array [ ${ u1[$].toArray().join(connector) } ]`;
