@@ -97,7 +97,9 @@ function exec( target, method, ...args ) {
 }
 
 function test_constructor() {
+  const empty = new Uint1Array;
   const x = new Uint8Array([21, 32]);
   const y = new Uint1Array(x);
-  assert.strictEqual(y+'', 'Uint1Array [ 1, 0 ]');
+  assert.strictEqual(y+'', '1,0');
+  assert.strictEqual(Object.prototype.toString.call(y), '[object Uint1Array]');
 }

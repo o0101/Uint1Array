@@ -163,6 +163,10 @@
           return this;
         }
 
+        static [Symbol.hasInstance](instance) {
+          return instance.__proto__ = this;
+        }
+
       // Static method slots on the constructor
 
         static from( iterable ) {
@@ -190,6 +194,10 @@
 
         get length() {
           return this[$].length;
+        }
+
+        get [Symbol.toStringTag]() {
+          return "Uint1Array";
         }
 
       // Method slots on the instance ( STANDARD as per the TypedArray Spec )
@@ -315,15 +323,19 @@
         }
 
         toLocaleString( ...args ) {
-          return this.toString().toLocaleString();
+          return Array.from(this).toLocaleString();
         }
 
         toString() {
-          return `Uint1Array [ ${ this[$].toArray().join(', ') } ]`;
+          return Array.from(this).toString();
         }
 
         [Symbol.iterator]() {
           return this[$].toArray()[Symbol.iterator]();
+        }
+
+        valueOf() {
+          return this;
         }
 
       // Method slots on the instances ( NON STANDARD )
@@ -403,7 +415,7 @@
     }
 
     function resolveTypeName( thing ) {
-      const cname = thing.constructor ? thing.constructor.name : null;
+      const cname = thing && thing.constructor ? thing.constructor.name : null;
       const tname = typeNameMatcher.exec( Object.prototype.toString.call( thing ) )[1];
       if ( tname !== cname && !! cname ) return cname;
       return tname;
