@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "test": "node -r esm tests.js",
-    "build": "parcel build index.js --no-source-maps"
+    "build": "parcel build index.js --no-source-maps && rm -rf .cache"
   },
   "repository": {
     "type": "git",
