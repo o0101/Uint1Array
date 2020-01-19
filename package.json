@@ -2,9 +2,13 @@
   "name": "uint1array",
   "version": "1.0.6",
   "description": "Uint1Array - JavaScript's missing Typed Array",
-  "main": "index.js",
+  "main": "node.js",
+  "browser": "dist/index.js",
+  "unpkg": "index.js",
+  "module": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node -r esm tests.js",
+    "build": "parcel build index.js --no-source-maps"
   },
   "repository": {
     "type": "git",
@@ -24,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/dosaygo-coder-0/Uint1Array/issues"
   },
-  "homepage": "https://github.com/dosaygo-coder-0/Uint1Array#readme"
+  "homepage": "https://github.com/dosaygo-coder-0/Uint1Array#readme",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
 }
