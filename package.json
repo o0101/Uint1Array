@@ -9,6 +9,9 @@
   "pre-commit": [
     "build"
   ],
+  "browserslist": [
+    "> 5%"
+  ],
   "scripts": {
     "test": "node -r esm tests.js",
     "build": "parcel build index.js --no-source-maps && rm -rf .cache"
