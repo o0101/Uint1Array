@@ -32,6 +32,13 @@ For the actual length (number of bits), use `<Uint1Array>.length`.
 You can use like an ordinary TypedArray:
 
 ```js
+// pick an import style, either ESM or CommonJS
+// ESM
+// import Uint1Array from 'uint1array';
+
+// CommonJS
+// const Uint1Array = require('uint1array').default;
+
 const message = "JAVASCRIPT ROCKS";
 const chars = message.split('').map( c => c.charCodeAt(0) );
 
