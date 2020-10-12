@@ -5,7 +5,7 @@ import Uint1Array from './index.js';
 const TESTS = [
   [ 'sort', '0001111111' ],
   [ 'reverse', '0111111010' ],
-  [ 'map', '1111111111', x => x + 1 ],
+  [ 'map', '1010000001',  x => x + 1 ],
   [ 'map', '1010000001', x => x ^ 1 ]
 ];
 

@@ -39,6 +39,7 @@
     "esm": "^3.2.25"
   },
   "devDependencies": {
+    "parcel": "^1.12.4",
     "pre-commit": "^1.2.2"
   }
 }

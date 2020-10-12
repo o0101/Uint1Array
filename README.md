@@ -33,6 +33,7 @@ You can use like an ordinary TypedArray:
 
 ```js
 // pick an import style, either ESM or CommonJS
+
 // ESM
 // import Uint1Array from 'uint1array';
 
