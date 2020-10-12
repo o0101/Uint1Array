@@ -1,6 +1,6 @@
 {
   "name": "uint1array",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Uint1Array - JavaScript's missing Typed Array",
   "main": "node.js",
   "browser": "dist/index.js",
